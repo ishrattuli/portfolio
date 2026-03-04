@@ -648,7 +648,7 @@
     <a href="#about">About</a>
     <a href="#articles">Work</a>
     <a href="#contact">Contact</a>
-   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+   <script>
   // Thank you modal
   function handleFormSubmit() {
     const name    = document.querySelector('.fi[placeholder="Your name"]').value.trim();
@@ -694,24 +694,29 @@
       if (en.isIntersecting) setTimeout(() => en.target.classList.add('vis'), i * 60);
     });
   }, { threshold: .08 });
-  rvs.fo
-  </div>
-</footer>
-
-<script>
-  // Scroll reveal
-  const rvs = document.querySelectorAll('.rv');
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach((en, i) => {
-      if (en.isIntersecting) setTimeout(() => en.target.classList.add('vis'), i * 60);
-    });
-  }, { threshold: .08 });
   rvs.forEach(el => obs.observe(el));
 
   // Nav shadow on scroll
   window.addEventListener('scroll', () => {
     document.querySelector('nav').style.boxShadow =
       window.scrollY > 50 ? '0 4px 30px rgba(44,36,32,.08)' : 'none';
+  });
+
+  // Photo upload
+  document.getElementById('photoUpload').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+      const preview     = document.getElementById('photoPreview');
+      const placeholder = document.getElementById('photoPlaceholder');
+      const changeBtn   = document.getElementById('photoChangeBtn');
+      preview.src = ev.target.result;
+      preview.style.display = 'block';
+      placeholder.style.display = 'none';
+      changeBtn.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
   });
 </script>
 </body>
